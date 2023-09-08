@@ -11,6 +11,7 @@ from datetime import datetime
 import yaml
 from nltk.corpus import stopwords
 from nltk import download
+from dotenv import load_dotenv
 
 download('stopwords')
 
@@ -114,14 +115,16 @@ def clear_chat_log(file_path):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Analyze YouTube livestream chat log.")
-    parser.add_argument("file_path", nargs='?', default="./chat-log.csv", help="Path to the CSV file containing the chat log. Defaults to ./chat-log.csv.")
-    parser.add_argument("stream_title", help="Title of the stream.")
-    args = parser.parse_args()
-
-    analyze_stream(args.file_path, args.stream_title)
-    print("Analysis complete.")
-    print("Clearing Stream Data for Base Log")
-    headers = ["user", "username", "user_id", "message_id", "timestamp", "message", "profile_url"]
-    clear_chat_log(args.file_path)
+    load_dotenv()
+    log_dir = os.environ.get("DATA_PATH")
+    log_file = log_dir + "\\" + os.environ.get("CUR_LOG_FILE")
+    #stream_name = "test-stream"
+    #analyze_stream(log_file, stream_name)
+    #print("Analysis complete.")
+    #print("Clearing Stream Data for Base Log")
+    #headers = ["user", "username", "user_id", "message_id", "timestamp", "message", "profile_url"]
+    ##clear_chat_log(args.file_path)
+    
+    print(log_dir)
+    print(log_file)
 
